@@ -100,9 +100,17 @@ OAuth is **not authentication**, and confusion here breaks everything later.
 
 - Authorization Code Flow (MOST IMPORTANT)
 - Authorization Code + PKCE (modern standard)
-- Client Credentials Flow
+- Client Credentials Flow (Service accounts, machine-to-machine)
 - Device Authorization Flow
 - Refresh Tokens
+- Implicit Flow (deprecated, but understand why)
+- Resource Owner Password Credentials (deprecated, but understand why)
+- JWT Bearer Flow (for API-to-API)
+- SAML 2.0 Bearer Flow (less common, but good to know)
+- JWT Client Authentication (for confidential clients)
+- Token Exchange (RFC 8693, advanced use case)
+- DPoP (Proof of Possession, advanced security)
+- mTLS (Mutual TLS, advanced security)
 
 ### Avoid / understand why deprecated
 
@@ -176,7 +184,7 @@ OAuth is **not authentication**, and confusion here breaks everything later.
 - DPoP (Proof of Possession tokens)
 - mTLS (Mutual TLS)
 - ABCA (Attestation-Based Client Auth)
-- FAPI (Financial-grade API — I think you meant FPA?)
+- FaPI (First-Party Application Interactions)
 
 ---
 
