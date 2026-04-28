@@ -1,1 +1,5 @@
 .idea
+auth-code-flow/node_modules
+auth-code-flow/dist
+auth-code-flow/.env
+auth-code-flow/npm-debug.log*
