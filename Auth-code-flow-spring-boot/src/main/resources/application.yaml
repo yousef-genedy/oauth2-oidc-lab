@@ -1,0 +1,30 @@
+server:
+  port: 8081
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: spring-boot-app
+            client-secret: ZOZGCDv7IgsvoTPbv7Vbizzx6ATYs3eN
+            scope: openid, email, profile
+            authorization-grant-type: authorization_code
+            redirect-uri: "http://localhost:8081/login/oauth2/code/keycloak"  # it will match http://localhost:8081/login/oauth2/code/keycloak
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/demo
+            user-name-attribute: preferred_username   # Use this field as the logged-in username
+logging:
+  file:
+    name: logs/debug.log
+  level:
+    # Everything else silent
+    root: WARN
+    # Only our structured JSON filter logs at INFO
+    org.example.config.AuthFlowTraceFilter: INFO
+    # Spring Security at WARN — no more TRACE/DEBUG noise
+    org.springframework.security: WARN
+    org.springframework.web: WARN
+    org.springframework.web.client: WARN

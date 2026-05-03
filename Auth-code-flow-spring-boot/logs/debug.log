@@ -1,0 +1,392 @@
+2026-05-04T00:01:22.251+03:00  INFO 25568 --- [http-nio-8081-exec-8] org.example.config.AuthFlowTraceFilter   : AUTH-FLOW-EVENT {
+  "timestamp" : "2026-05-03T21:01:22.251849Z",
+  "event" : "LOGIN_PAGE",
+  "method" : "GET",
+  "uri" : "/login",
+  "sessionId" : "none",
+  "request" : {
+    "cookies" : [ "JSESSIONID=<present>" ]
+  },
+  "response" : {
+    "status" : 200
+  }
+}
+2026-05-04T00:02:34.228+03:00  INFO 15984 --- [http-nio-8081-exec-1] org.example.config.AuthFlowTraceFilter   : AUTH-FLOW-EVENT {
+  "timestamp" : "2026-05-03T21:02:34.212947400Z",
+  "event" : "INITIAL_ACCESS_DENIED",
+  "method" : "GET",
+  "uri" : "/dashboard",
+  "sessionId" : "BBE40F31C0A4…",
+  "request" : {
+    "cookies" : [ "JSESSIONID=<present>" ]
+  },
+  "response" : {
+    "status" : 302,
+    "location" : "http://localhost:8081/oauth2/authorization/keycloak"
+  }
+}
+2026-05-04T00:02:34.249+03:00  INFO 15984 --- [http-nio-8081-exec-2] org.example.config.AuthFlowTraceFilter   : AUTH-FLOW-EVENT {
+  "timestamp" : "2026-05-03T21:02:34.248140500Z",
+  "event" : "REDIRECT_TO_KEYCLOAK",
+  "method" : "GET",
+  "uri" : "/oauth2/authorization/keycloak",
+  "sessionId" : "BBE40F31C0A4…",
+  "request" : {
+    "cookies" : [ "JSESSIONID=<present>" ]
+  },
+  "response" : {
+    "status" : 302,
+    "location" : "http://localhost:8080/realms/demo/protocol/openid-connect/auth",
+    "securityParams" : {
+      "response_type" : "code | Authorization Code flow — only a short-lived code passes through the browser; actual tokens are fetched server-to-server",
+      "client_id" : "spring-boot-app",
+      "scope" : "openid email profile | 'openid' enables OIDC id_token; 'email'+'profile' add user claims to the token",
+      "state" : "PLUe5gJACfMSWoLrk_uh… | CSRF protection — Spring saves this in the HTTP session; when Keycloak echoes it back, Spring verifies they match before exchanging the code",
+      "redirect_uri" : "http://localhost:8081/login/oauth2/code/keycloak | must exactly match a URI registered in the Keycloak client settings",
+      "nonce" : "hui0momhTWUqyDYSxy0v… | Replay attack protection — Keycloak embeds this in the signed id_token; Spring verifies it matches the session value so stolen tokens can't be reused"
+    }
+  }
+}
+2026-05-04T00:02:34.440+03:00  INFO 15984 --- [http-nio-8081-exec-3] org.example.config.AuthFlowTraceFilter   : AUTH-FLOW-EVENT {
+  "timestamp" : "2026-05-03T21:02:34.424890100Z",
+  "event" : "AUTHENTICATION_SUCCESS",
+  "method" : "GET",
+  "uri" : "/login/oauth2/code/keycloak",
+  "sessionId" : "99C2F8C1D821…",
+  "request" : {
+    "queryString" : "state=PLUe5gJACfMSWoLrk_uhnv8Nf0FCp-fONv-HNt8RVP8%3D&session_state=XH_uFVKsHj-EALPKq1HIgkuJ&iss=http%3A%2F%2Flocalhost%3A8080%2Frealms%2Fdemo&code=40a4fa54-4591-e60a-4b66-0b37dbaa346d.XH_uFVKsHj-EALPKq1HIgkuJ.e0097bd7-b51c-4f67-9382-696ff3295ded",
+    "oauthParams" : {
+      "code" : "40a4fa54-4591-e6… (one-time authorization code — exchanged server-to-server for tokens, ~60s TTL)",
+      "state" : "PLUe5gJACfMSWoLrk_uh… (echoed by Keycloak — Spring verifies this equals the value saved in session → CSRF protection)"
+    },
+    "cookies" : [ "JSESSIONID=<present>" ]
+  },
+  "response" : {
+    "status" : 302,
+    "location" : "http://localhost:8081/dashboard",
+    "note" : "Authentication complete — OidcUser built from id_token, stored in HTTP session as SPRING_SECURITY_CONTEXT"
+  },
+  "extractedUser" : {
+    "username" : "ayat",
+    "fullName" : "ayat",
+    "givenName" : "Ayat",
+    "familyName" : "Mohamed",
+    "email" : "ayat@gimal.com",
+    "emailVerified" : "false",
+    "subject" : "0bf01860-2163-4a4a-bbc5-0bf1fa8b1a4c",
+    "issuer" : "http://localhost:8080/realms/demo",
+    "expiresAt" : "2026-05-03T21:07:34Z",
+    "issuedAt" : "2026-05-03T21:02:34Z",
+    "authorities" : [ "OIDC_USER", "SCOPE_email", "SCOPE_openid", "SCOPE_profile" ]
+  }
+}
+2026-05-04T00:02:34.779+03:00  INFO 15984 --- [http-nio-8081-exec-5] org.example.config.AuthFlowTraceFilter   : AUTH-FLOW-EVENT {
+  "timestamp" : "2026-05-03T21:02:34.779002900Z",
+  "event" : "DASHBOARD_ACCESS",
+  "method" : "GET",
+  "uri" : "/dashboard",
+  "sessionId" : "99C2F8C1D821…",
+  "request" : {
+    "cookies" : [ "JSESSIONID=<present>" ]
+  },
+  "response" : {
+    "status" : 200
+  },
+  "extractedUser" : {
+    "username" : "ayat",
+    "fullName" : "ayat",
+    "givenName" : "Ayat",
+    "familyName" : "Mohamed",
+    "email" : "ayat@gimal.com",
+    "emailVerified" : "false",
+    "subject" : "0bf01860-2163-4a4a-bbc5-0bf1fa8b1a4c",
+    "issuer" : "http://localhost:8080/realms/demo",
+    "expiresAt" : "2026-05-03T21:07:34Z",
+    "issuedAt" : "2026-05-03T21:02:34Z",
+    "authorities" : [ "OIDC_USER", "SCOPE_email", "SCOPE_openid", "SCOPE_profile" ]
+  }
+}
+2026-05-04T00:03:58.958+03:00  INFO 17100 --- [http-nio-8081-exec-1] org.example.config.AuthFlowTraceFilter   : AUTH-FLOW-EVENT {
+  "timestamp" : "2026-05-03T21:03:58.947710800Z",
+  "event" : "INITIAL_ACCESS_DENIED",
+  "method" : "GET",
+  "uri" : "/dashboard",
+  "sessionId" : "2028DB008765…",
+  "request" : {
+    "cookies" : [ "JSESSIONID=<present>" ]
+  },
+  "response" : {
+    "status" : 302,
+    "location" : "http://localhost:8081/oauth2/authorization/keycloak"
+  }
+}
+2026-05-04T00:03:58.975+03:00  INFO 17100 --- [http-nio-8081-exec-4] org.example.config.AuthFlowTraceFilter   : AUTH-FLOW-EVENT {
+  "timestamp" : "2026-05-03T21:03:58.974747800Z",
+  "event" : "REDIRECT_TO_KEYCLOAK",
+  "method" : "GET",
+  "uri" : "/oauth2/authorization/keycloak",
+  "sessionId" : "2028DB008765…",
+  "request" : {
+    "cookies" : [ "JSESSIONID=<present>" ]
+  },
+  "response" : {
+    "status" : 302,
+    "location" : "http://localhost:8080/realms/demo/protocol/openid-connect/auth",
+    "securityParams" : {
+      "response_type" : "code | Authorization Code flow — only a short-lived code passes through the browser; actual tokens are fetched server-to-server",
+      "client_id" : "spring-boot-app",
+      "scope" : "openid email profile | 'openid' enables OIDC id_token; 'email'+'profile' add user claims to the token",
+      "state" : "E_JQg0S_2RmiJGY0M-SS… | CSRF protection — Spring saves this in the HTTP session; when Keycloak echoes it back, Spring verifies they match before exchanging the code",
+      "redirect_uri" : "http://localhost:8081/login/oauth2/code/keycloak | must exactly match a URI registered in the Keycloak client settings",
+      "nonce" : "1b9VbDmFyMIKFHExhqZ2… | Replay attack protection — Keycloak embeds this in the signed id_token; Spring verifies it matches the session value so stolen tokens can't be reused"
+    }
+  }
+}
+2026-05-04T00:03:59.127+03:00  INFO 17100 --- [http-nio-8081-exec-3] org.example.config.AuthFlowTraceFilter   : AUTH-FLOW-EVENT {
+  "timestamp" : "2026-05-03T21:03:59.114715500Z",
+  "event" : "AUTHENTICATION_SUCCESS",
+  "method" : "GET",
+  "uri" : "/login/oauth2/code/keycloak",
+  "sessionId" : "935EDDC22138…",
+  "request" : {
+    "queryString" : "state=E_JQg0S_2RmiJGY0M-SSROqcBTccUy5wXBDzHnTdXmQ%3D&session_state=XH_uFVKsHj-EALPKq1HIgkuJ&iss=http%3A%2F%2Flocalhost%3A8080%2Frealms%2Fdemo&code=3d692bbe-4713-f1a8-e448-15417a2a7e36.XH_uFVKsHj-EALPKq1HIgkuJ.e0097bd7-b51c-4f67-9382-696ff3295ded",
+    "oauthParams" : {
+      "code" : "3d692bbe-4713-f1… (one-time authorization code — exchanged server-to-server for tokens, ~60s TTL)",
+      "state" : "E_JQg0S_2RmiJGY0M-SS… (echoed by Keycloak — Spring verifies this equals the value saved in session → CSRF protection)"
+    },
+    "cookies" : [ "JSESSIONID=<present>" ]
+  },
+  "response" : {
+    "status" : 302,
+    "location" : "http://localhost:8081/dashboard",
+    "note" : "Authentication complete — OidcUser built from id_token, stored in HTTP session as SPRING_SECURITY_CONTEXT"
+  },
+  "extractedUser" : {
+    "username" : "ayat",
+    "fullName" : "ayat",
+    "givenName" : "Ayat",
+    "familyName" : "Mohamed",
+    "email" : "ayat@gimal.com",
+    "emailVerified" : "false",
+    "subject" : "0bf01860-2163-4a4a-bbc5-0bf1fa8b1a4c",
+    "issuer" : "http://localhost:8080/realms/demo",
+    "expiresAt" : "2026-05-03T21:08:59Z",
+    "issuedAt" : "2026-05-03T21:03:59Z",
+    "authorities" : [ "OIDC_USER", "SCOPE_email", "SCOPE_openid", "SCOPE_profile" ]
+  }
+}
+2026-05-04T00:03:59.408+03:00  INFO 17100 --- [http-nio-8081-exec-2] org.example.config.AuthFlowTraceFilter   : AUTH-FLOW-EVENT {
+  "timestamp" : "2026-05-03T21:03:59.408053400Z",
+  "event" : "DASHBOARD_ACCESS",
+  "method" : "GET",
+  "uri" : "/dashboard",
+  "sessionId" : "935EDDC22138…",
+  "request" : {
+    "cookies" : [ "JSESSIONID=<present>" ]
+  },
+  "response" : {
+    "status" : 200
+  },
+  "extractedUser" : {
+    "username" : "ayat",
+    "fullName" : "ayat",
+    "givenName" : "Ayat",
+    "familyName" : "Mohamed",
+    "email" : "ayat@gimal.com",
+    "emailVerified" : "false",
+    "subject" : "0bf01860-2163-4a4a-bbc5-0bf1fa8b1a4c",
+    "issuer" : "http://localhost:8080/realms/demo",
+    "expiresAt" : "2026-05-03T21:08:59Z",
+    "issuedAt" : "2026-05-03T21:03:59Z",
+    "authorities" : [ "OIDC_USER", "SCOPE_email", "SCOPE_openid", "SCOPE_profile" ]
+  }
+}
+2026-05-04T00:07:13.260+03:00  INFO 19660 --- [http-nio-8081-exec-1] org.example.config.AuthFlowTraceFilter   : AUTH-FLOW-EVENT {
+  "timestamp" : "2026-05-03T21:07:13.231681600Z",
+  "event" : "INITIAL_ACCESS_DENIED",
+  "method" : "GET",
+  "uri" : "/dashboard",
+  "sessionId" : "1610553E686C…",
+  "request" : {
+    "cookies" : [ "JSESSIONID=<present>" ]
+  },
+  "response" : {
+    "status" : 302,
+    "location" : "http://localhost:8081/oauth2/authorization/keycloak"
+  }
+}
+2026-05-04T00:07:13.299+03:00  INFO 19660 --- [http-nio-8081-exec-3] org.example.config.AuthFlowTraceFilter   : AUTH-FLOW-EVENT {
+  "timestamp" : "2026-05-03T21:07:13.297695200Z",
+  "event" : "REDIRECT_TO_KEYCLOAK",
+  "method" : "GET",
+  "uri" : "/oauth2/authorization/keycloak",
+  "sessionId" : "1610553E686C…",
+  "request" : {
+    "cookies" : [ "JSESSIONID=<present>" ]
+  },
+  "response" : {
+    "status" : 302,
+    "location" : "http://localhost:8080/realms/demo/protocol/openid-connect/auth",
+    "securityParams" : {
+      "response_type" : "code | Authorization Code flow — only a short-lived code passes through the browser; actual tokens are fetched server-to-server",
+      "client_id" : "spring-boot-app",
+      "scope" : "openid email profile | 'openid' enables OIDC id_token; 'email'+'profile' add user claims to the token",
+      "state" : "uxZHlH69qupMQ_g1O75r… | CSRF protection — Spring saves this in the HTTP session; when Keycloak echoes it back, Spring verifies they match before exchanging the code",
+      "redirect_uri" : "http://localhost:8081/login/oauth2/code/keycloak | must exactly match a URI registered in the Keycloak client settings",
+      "nonce" : "ojWTEFdp0y2sqDnaKeDY… | Replay attack protection — Keycloak embeds this in the signed id_token; Spring verifies it matches the session value so stolen tokens can't be reused"
+    }
+  }
+}
+2026-05-04T00:07:13.641+03:00  INFO 19660 --- [http-nio-8081-exec-2] org.example.config.AuthFlowTraceFilter   : AUTH-FLOW-EVENT {
+  "timestamp" : "2026-05-03T21:07:13.612182200Z",
+  "event" : "AUTHENTICATION_SUCCESS",
+  "method" : "GET",
+  "uri" : "/login/oauth2/code/keycloak",
+  "sessionId" : "A975FB268211…",
+  "request" : {
+    "queryString" : "state=uxZHlH69qupMQ_g1O75rWeTUHtxvgHMxcI1r5Ccct0Q%3D&session_state=XH_uFVKsHj-EALPKq1HIgkuJ&iss=http%3A%2F%2Flocalhost%3A8080%2Frealms%2Fdemo&code=594ced18-0fae-2db0-39da-809a35ea08e0.XH_uFVKsHj-EALPKq1HIgkuJ.e0097bd7-b51c-4f67-9382-696ff3295ded",
+    "oauthParams" : {
+      "code" : "594ced18-0fae-2d… (one-time authorization code — exchanged server-to-server for tokens, ~60s TTL)",
+      "state" : "uxZHlH69qupMQ_g1O75r… (echoed by Keycloak — Spring verifies this equals the value saved in session → CSRF protection)"
+    },
+    "cookies" : [ "JSESSIONID=<present>" ]
+  },
+  "response" : {
+    "status" : 302,
+    "location" : "http://localhost:8081/dashboard",
+    "note" : "Authentication complete — OidcUser built from id_token, stored in HTTP session as SPRING_SECURITY_CONTEXT"
+  },
+  "extractedUser" : {
+    "username" : "ayat",
+    "fullName" : "ayat",
+    "givenName" : "Ayat",
+    "familyName" : "Mohamed",
+    "email" : "ayat@gimal.com",
+    "emailVerified" : "false",
+    "subject" : "0bf01860-2163-4a4a-bbc5-0bf1fa8b1a4c",
+    "issuer" : "http://localhost:8080/realms/demo",
+    "expiresAt" : "2026-05-03T21:12:13Z",
+    "issuedAt" : "2026-05-03T21:07:13Z",
+    "authorities" : [ "OIDC_USER", "SCOPE_email", "SCOPE_openid", "SCOPE_profile" ]
+  }
+}
+2026-05-04T00:07:14.390+03:00  INFO 19660 --- [http-nio-8081-exec-4] org.example.config.AuthFlowTraceFilter   : AUTH-FLOW-EVENT {
+  "timestamp" : "2026-05-03T21:07:14.389119900Z",
+  "event" : "DASHBOARD_ACCESS",
+  "method" : "GET",
+  "uri" : "/dashboard",
+  "sessionId" : "A975FB268211…",
+  "request" : {
+    "cookies" : [ "JSESSIONID=<present>" ]
+  },
+  "response" : {
+    "status" : 200
+  },
+  "extractedUser" : {
+    "username" : "ayat",
+    "fullName" : "ayat",
+    "givenName" : "Ayat",
+    "familyName" : "Mohamed",
+    "email" : "ayat@gimal.com",
+    "emailVerified" : "false",
+    "subject" : "0bf01860-2163-4a4a-bbc5-0bf1fa8b1a4c",
+    "issuer" : "http://localhost:8080/realms/demo",
+    "expiresAt" : "2026-05-03T21:12:13Z",
+    "issuedAt" : "2026-05-03T21:07:13Z",
+    "authorities" : [ "OIDC_USER", "SCOPE_email", "SCOPE_openid", "SCOPE_profile" ]
+  }
+}
+2026-05-04T00:09:50.307+03:00  INFO 19660 --- [http-nio-8081-exec-9] org.example.config.AuthFlowTraceFilter   : AUTH-FLOW-EVENT {
+  "timestamp" : "2026-05-03T21:09:50.305325500Z",
+  "event" : "REDIRECT_TO_KEYCLOAK",
+  "method" : "GET",
+  "uri" : "/oauth2/authorization/keycloak;jsessionid=F8367EB5297F2B17462525D5934B53FD",
+  "sessionId" : "F8367EB5297F…",
+  "request" : {
+    "cookies" : [ "JSESSIONID=<present>" ]
+  },
+  "response" : {
+    "status" : 400
+  }
+}
+2026-05-04T00:09:50.319+03:00  INFO 19660 --- [http-nio-8081-exec-10] org.example.config.AuthFlowTraceFilter   : AUTH-FLOW-EVENT {
+  "timestamp" : "2026-05-03T21:09:50.318504900Z",
+  "event" : "REDIRECT_TO_KEYCLOAK",
+  "method" : "GET",
+  "uri" : "/oauth2/authorization/keycloak",
+  "sessionId" : "F8367EB5297F…",
+  "request" : {
+    "cookies" : [ "JSESSIONID=<present>" ]
+  },
+  "response" : {
+    "status" : 302,
+    "location" : "http://localhost:8080/realms/demo/protocol/openid-connect/auth",
+    "securityParams" : {
+      "response_type" : "code | Authorization Code flow — only a short-lived code passes through the browser; actual tokens are fetched server-to-server",
+      "client_id" : "spring-boot-app",
+      "scope" : "openid email profile | 'openid' enables OIDC id_token; 'email'+'profile' add user claims to the token",
+      "state" : "T9DXgB-IAWGJATYpnP9H… | CSRF protection — Spring saves this in the HTTP session; when Keycloak echoes it back, Spring verifies they match before exchanging the code",
+      "redirect_uri" : "http://localhost:8081/login/oauth2/code/keycloak | must exactly match a URI registered in the Keycloak client settings",
+      "nonce" : "avvcOM47pkQvI_Yxfq6d… | Replay attack protection — Keycloak embeds this in the signed id_token; Spring verifies it matches the session value so stolen tokens can't be reused"
+    }
+  }
+}
+2026-05-04T00:09:50.414+03:00  INFO 19660 --- [http-nio-8081-exec-1] org.example.config.AuthFlowTraceFilter   : AUTH-FLOW-EVENT {
+  "timestamp" : "2026-05-03T21:09:50.413941400Z",
+  "event" : "AUTHENTICATION_SUCCESS",
+  "method" : "GET",
+  "uri" : "/login/oauth2/code/keycloak",
+  "sessionId" : "A35072B2DBE7…",
+  "request" : {
+    "queryString" : "state=T9DXgB-IAWGJATYpnP9HWlbPm9jYsrXHNdgMAI8hz4A%3D&session_state=XH_uFVKsHj-EALPKq1HIgkuJ&iss=http%3A%2F%2Flocalhost%3A8080%2Frealms%2Fdemo&code=b8b4f4fa-45e0-a6eb-dcff-0b58bf8fe5fb.XH_uFVKsHj-EALPKq1HIgkuJ.e0097bd7-b51c-4f67-9382-696ff3295ded",
+    "oauthParams" : {
+      "code" : "b8b4f4fa-45e0-a6… (one-time authorization code — exchanged server-to-server for tokens, ~60s TTL)",
+      "state" : "T9DXgB-IAWGJATYpnP9H… (echoed by Keycloak — Spring verifies this equals the value saved in session → CSRF protection)"
+    },
+    "cookies" : [ "JSESSIONID=<present>" ]
+  },
+  "response" : {
+    "status" : 302,
+    "location" : "http://localhost:8081/dashboard",
+    "note" : "Authentication complete — OidcUser built from id_token, stored in HTTP session as SPRING_SECURITY_CONTEXT"
+  },
+  "extractedUser" : {
+    "username" : "ayat",
+    "fullName" : "ayat",
+    "givenName" : "Ayat",
+    "familyName" : "Mohamed",
+    "email" : "ayat@gimal.com",
+    "emailVerified" : "false",
+    "subject" : "0bf01860-2163-4a4a-bbc5-0bf1fa8b1a4c",
+    "issuer" : "http://localhost:8080/realms/demo",
+    "expiresAt" : "2026-05-03T21:14:50Z",
+    "issuedAt" : "2026-05-03T21:09:50Z",
+    "authorities" : [ "OIDC_USER", "SCOPE_email", "SCOPE_openid", "SCOPE_profile" ]
+  }
+}
+2026-05-04T00:09:50.429+03:00  INFO 19660 --- [http-nio-8081-exec-3] org.example.config.AuthFlowTraceFilter   : AUTH-FLOW-EVENT {
+  "timestamp" : "2026-05-03T21:09:50.428184200Z",
+  "event" : "DASHBOARD_ACCESS",
+  "method" : "GET",
+  "uri" : "/dashboard",
+  "sessionId" : "A35072B2DBE7…",
+  "request" : {
+    "cookies" : [ "JSESSIONID=<present>" ]
+  },
+  "response" : {
+    "status" : 200
+  },
+  "extractedUser" : {
+    "username" : "ayat",
+    "fullName" : "ayat",
+    "givenName" : "Ayat",
+    "familyName" : "Mohamed",
+    "email" : "ayat@gimal.com",
+    "emailVerified" : "false",
+    "subject" : "0bf01860-2163-4a4a-bbc5-0bf1fa8b1a4c",
+    "issuer" : "http://localhost:8080/realms/demo",
+    "expiresAt" : "2026-05-03T21:14:50Z",
+    "issuedAt" : "2026-05-03T21:09:50Z",
+    "authorities" : [ "OIDC_USER", "SCOPE_email", "SCOPE_openid", "SCOPE_profile" ]
+  }
+}
