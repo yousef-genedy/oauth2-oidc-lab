@@ -1,6 +1,6 @@
 # OAuth 2.0 + OpenID Connect (OIDC) Learning Lab
 
-Hands-on, step-by-step implementations to understand OAuth 2.0 and OpenID Connect by building the flows manually in Node.js + TypeScript.
+Hands-on, step-by-step implementations to understand OAuth 2.0 and OpenID Connect by building the flows manually in Node.js + TypeScript, Java and Go.
 
 ## Project goals
 
@@ -15,12 +15,16 @@ Implementations are intentionally simple and log-heavy to keep the protocol visi
 Each directory is a step in the learning journey.
 
 - `auth-code-flow` — basic OAuth 2.0 Authorization Code Flow (no PKCE)
+- `auth-code-flow-with-pkce-go` — Authorization Code Flow with PKCE (Go implementation)
 
-Future directories will build on earlier steps (PKCE, refresh tokens, validation, extensions).
+Progression:
+- `auth-code-flow` is the baseline flow to understand redirects, `state`, and token exchange.
+- `auth-code-flow-with-pkce-go` builds on that baseline by adding PKCE (`code_verifier` / `code_challenge`) for public-client security.
 
 ## Prerequisites
 
 - Node.js 18+
+- Go (latest stable)
 - Docker
 
 ## Keycloak setup (Docker)
@@ -72,9 +76,12 @@ npm run dev
 - Verbose logging is intentional for learning.
 - Security hardening and best practices are introduced in later steps.
 
+## Learning path
+
+Basic Authorization Code Flow → PKCE → refresh tokens → advanced topics (validation, extensions, hardening)
+
 ## Future improvements
 
-- PKCE
 - Refresh tokens
 - Token validation with JWKS
 - Advanced OAuth extensions
