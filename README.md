@@ -16,10 +16,12 @@ Each directory is a step in the learning journey.
 
 - `auth-code-flow` — basic OAuth 2.0 Authorization Code Flow (no PKCE)
 - `auth-code-flow-with-pkce-go` — Authorization Code Flow with PKCE (Go implementation)
+- `refresh-token-flow` — Authorization Code + PKCE with refresh token lifecycle and rotation (Go)
 
 Progression:
 - `auth-code-flow` is the baseline flow to understand redirects, `state`, and token exchange.
 - `auth-code-flow-with-pkce-go` builds on that baseline by adding PKCE (`code_verifier` / `code_challenge`) for public-client security.
+- `refresh-token-flow` builds on the PKCE example by adding short-lived access token handling, automatic refresh, and refresh token rotation behavior.
 
 ## Prerequisites
 
@@ -78,10 +80,9 @@ npm run dev
 
 ## Learning path
 
-Basic Authorization Code Flow → PKCE → refresh tokens → advanced topics (validation, extensions, hardening)
+`auth-code-flow` → `auth-code-flow-with-pkce-go` → `refresh-token-flow` → advanced topics (validation, extensions, hardening)
 
 ## Future improvements
 
-- Refresh tokens
 - Token validation with JWKS
 - Advanced OAuth extensions
